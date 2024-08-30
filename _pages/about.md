@@ -2,24 +2,23 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Moto. Etc.
+subtitle: <a href='https://www.iis.sinica.edu.tw/en/page/People/TIGPStudent.html'>Institute of Information Scienice, Academia Sinica</a>
 
 profile:
-  align: right
+  align: left
   image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: true # crops the image to make it circular
   more_info: >
-    <p>555 your office number</p>
-    <p>123 your address street</p>
-    <p>Your City, State 12345</p>
 
-news: true # includes a list of news items
-selected_papers: true # includes a list of papers marked as "selected={true}"
+
+news: false # includes a list of news items
+selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
+Hi, welcome to my page! 
 
-Write your biography here. Tell the world about yourself. Link to your favorite [subreddit](http://reddit.com). You can put a picture in, too. The code is already in, just name your picture `prof_pic.jpg` and put it in the `img/` folder.
+I'm a PhD Student in National Tsing Hua University and a Research Scholar in the Institute of Information Science of Academia Sinica. 
 
-Put your address / P.O. box / other info right below your picture. You can also disable any of these elements by editing `profile` property of the YAML header of your `_pages/about.md`. Edit `_bibliography/papers.bib` and Jekyll will render your [publications page](/al-folio/publications/) automatically.
+I specialize in Natural Language Understanding, especially design, training and fine-tuning of large foundation language models. I often work on the detection of LLMs limitations in language inference-related tasks and adressing them based on a-priori linguisic knowledge. Recently I have been working on addressing LLM over-relience on shallow lexical cues in text matching for downstream tasks. My other interests include developmental robotics, ethical AI and analyzing animal communications with NLP techniques.
 
-Link to your social media connections, too. This theme is set up to use [Font Awesome icons](https://fontawesome.com/) and [Academicons](https://jpswalsh.github.io/academicons/), like the ones below. Add your Facebook, Twitter, LinkedIn, Google Scholar, or just disable all of them.
+This website contains a small collection of my most interesting projects - those I wanted keep track of and share with anyone interested. You can browse them in the [projects](./projects/) section. In the [teaching](./teaching/) tab there are resources related to various NLP applications such as ppt slides and resource lists. If you're interested in my past publications, all of them are listed in the [publications](./publications/) tab. And you'd like to contact me - whether with a question, comment or some collab idea - feel free to reach out to me on LinkedIn, github or by email.

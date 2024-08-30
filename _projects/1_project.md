@@ -1,81 +1,39 @@
 ---
 layout: page
-title: project 1
-description: with background image
-img: assets/img/12.jpg
+title: Looking again into monolingual sentence alignment
+description: New LLM metrics in monoligual sentence alignment problem
+img: 
 importance: 1
-category: work
+category: LLMs and their applications
 related_publications: true
+
+toc:
+    sidebar: left
+
 ---
+<blockquote>
+<ul>
+    <li>Aren't there any better similarity metrics for text alignment other that character ngam overlap, still used today as SOTA?</li>
+    <li>How to develop an adequate NN similarity measure for monolingual sentence alignment?</li>
+</ul>
+</blockquote>
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+In this project, we were motivated by the need to align sentences in a monolingual paraphrase corpus into one-to-one mappings. As it turned out, the problem was not as trivial as it might have looked, since most SOTA approaches still used obsolate metrics such as ngram overlap to derive the alignments. Therefore, we conducted our own study to find how modern deep learning models can better answer this problem. You can check out the whole study in our paper [Is Character Trigram Overlapping Ratio Still the Best Similarity Measure for Aligning Sentences in a Paraphrased Corpus? (Smolka et al., ROCLING 2022)](https://aclanthology.org/2022.rocling-1.7.pdf) and the related [github repo](https://github.com/alsmolka/sentence-alignment).
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
+## What is this project about?<a name="introduction"></a>
 
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
+Our projects proposes several new LLM-based sentence similarity metrics which we then adopt together with two search mechanisms - a directional best match and a sequence match. Together they are used to identify one-to-one alignments between two bodies of text such as in the figure below.
+[figure]
 
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
-</div>
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    This image can also have a caption. It's like magic.
-</div>
+The best match approach is similar to a greedy search. We use precomputed similarity scores (based on one of the metrics) and link sentences which have the highest similarity. We extract such pairs starting from those most similar ones. We also test a uni-directional and bi-directional version of this alogrithm. In one case, we only care about the similarity mapping from the first text to the second. In the second case, we take into consideration the similarity ranking in both directions between the texts.
 
-You can also put regular text between your rows of images, even citations {% cite einstein1950meaning %}.
-Say you wanted to write a bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+Another algorithm we test for the alignment with our various metrics is a sequential match which is a popular dynamic programming approach to sequence alignment (Gale and Church, 1993).
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-<div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
-</div>
+## Which metrics did we test?<a name="models"></a>
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+The metrics we tested all belong to one of two main categories - either string-based similarity measures or embedding-based similarity measures. The string-based similarity measures are for example, measuring the token or character ngram overlap between sentences. The embedding-based metrics are of a bigger interest to us. To obtain such measure, we usually first embed both sentences using a selected LLM (we tested BERT-family models) and calculate the cosine similarity between the embeddings. Another option is to use a premade metric such as BERTScore.
 
-{% raw %}
 
-```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
-```
+## What is the best similarity metric?<a name="results"></a>
 
-{% endraw %}
+In the end, it turned out that, unsuprisingly, the best results were achieved with transformer model embeddings, though the results differed slightly for different alignment algorithm. If you'd like to have a look at full results or read about all the measures we tested, definitely check out the paper linked at the top of the page!
