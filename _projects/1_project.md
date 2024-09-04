@@ -6,6 +6,7 @@ img:
 importance: 1
 category: LLMs and their applications
 related_publications: true
+giscus_comments: false
 
 toc:
     sidebar: left

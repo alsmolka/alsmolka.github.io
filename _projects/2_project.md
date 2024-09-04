@@ -5,7 +5,7 @@ description: Comparing errors in human- and machine-generated texts.
 img: 
 importance: 2
 category: LLMs and their applications
-giscus_comments: true
+giscus_comments: false
 
 toc:
     sidebar: left
